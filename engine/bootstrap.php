@@ -7,6 +7,13 @@ use Engine\DI\DI;
 try {
   // dependency injection
   $di = new DI();
+  $services = require __DIR__.'/Config/Service.php';
+
+  //init services
+  foreach ($services as $service) {
+    $provider = new $service($di);
+    $provider->init();
+  }
   //run CMS
   $cms = new CMS($di);
   $cms->run();

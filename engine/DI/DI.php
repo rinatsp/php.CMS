@@ -9,7 +9,7 @@ class DI {
 /**
 * @var array
 */
-private $conteiner = [];
+private $conteiner =[];
 /**
  * [set fun]
  * @param [type] $key   [description]

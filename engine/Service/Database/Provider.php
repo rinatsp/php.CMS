@@ -20,7 +20,7 @@ public $serviceName = 'db';
  */
 public function init(){
   $db = new DatabaseConnect();
-  $this->di->set();
+  $this->di->set($this->serviceName, $db);
 }
 
 
