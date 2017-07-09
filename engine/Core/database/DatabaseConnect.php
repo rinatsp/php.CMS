@@ -10,11 +10,11 @@ private $link;
 private function connect()
 {
   $config =  [
-    'host'      =>'',
-    'db_name'   =>'',
-    'username'  =>'',
+    'host'      =>'localhost',
+    'db_name'   =>'test',
+    'username'  =>'root',
     'password'  =>'',
-    'charset'   =>'',
+    'charset'   =>'utf8'
   ];
   $dns = 'mysql:host='.$config['host'].';dbmane='.$config['db_name'].';charset='.$config['charset'];
   $this->link = new PDO($dns, $config['username'], $config['password']);

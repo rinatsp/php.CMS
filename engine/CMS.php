@@ -8,16 +8,17 @@ class CMS {
    * @var [DI]
    */
   private $di;
-
+  public $router;
 
 /**
  * [___construct description]
  * @param  [type] $di [description]
  * @return [type]     [description]
  */
-public function ___construct($di)
+public function __construct($di)
 {
   $this->di = $di;
+  $this->router = $this->di->get('router');
 }
 
 /**
@@ -25,7 +26,7 @@ public function ___construct($di)
  */
 public function run()
 {
-
+  $this->router->add('home', '/', 'HomeController:index');
 }
 
   }
