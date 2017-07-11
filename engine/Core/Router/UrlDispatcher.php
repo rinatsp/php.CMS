@@ -1,14 +1,15 @@
 <?php
 
 namespace Engine\Core\Router;
+use Engine\Core\Router\DispatchedRoute;
 
 class UrlDispatcher{
 
   /**
-   * [$metod description]
+   * [$method description]
    * @var array
    */
-  private $metod = [
+  private $method = [
     'GET',
     'POST'
   ];
@@ -31,7 +32,15 @@ class UrlDispatcher{
     'str' =>  '[a-zA-Z\.\-_%]+',
     'any' =>  '[a-zA-Z0-9\.\-_%]+'
   ];
-
+  /**
+   * [routes description]
+   * @param  [type] $method [description]
+   * @return [type]         [description]
+   */
+  private function routes($method)
+  {
+    return isset($this->routes[$method]) ? $this->routes[$method] :[];
+  }
   /**
    * [addPattren description]
    * @param [type] $key     [description]
@@ -41,8 +50,28 @@ class UrlDispatcher{
   {
     $this->patterns[$key] = $pattern;
   }
-  public function dispatch($metod, $uri)
-  {
 
+
+  /**
+   * [dispatch description]
+   * @param  [type] $metod [description]
+   * @param  [type] $uri   [description]
+   * @return [type]        [description]
+   */
+  public function dispatch($method, $uri)
+  {
+    $routes = $this->routes(strtoupper($method));
+    if(array_key_exists($uri, $routes))
+    {
+      return new DispatchedRoute($routes[$uri]);
+    }
   }
+  public function  doDispatch($method, $uri)
+  {
+    foreach($this->routes($method) as $route => $controller)
+    {
+      print $route;
+    }
+  }
+
 }

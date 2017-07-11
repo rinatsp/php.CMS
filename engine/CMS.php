@@ -26,7 +26,8 @@ public function __construct($di)
  */
 public function run()
 {
-  $this->router->add('home', '/', 'HomeController:index');
+  //$this->router->add('home', '/', 'HomeController:index');
+
 }
 
   }
