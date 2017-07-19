@@ -2,6 +2,8 @@
 
 
 namespace Engine;
+use Engine\Helper\Common;
+
 class CMS {
   /**
    * [$di DI]
@@ -27,7 +29,8 @@ public function __construct($di)
 public function run()
 {
   //$this->router->add('home', '/', 'HomeController:index');
-
+   // $routerDispatch = $this->router->dispatch('GET', );
+   print_r($_SERVER);
 }
 
   }
