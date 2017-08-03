@@ -3,7 +3,7 @@
 
 namespace Engine;
 use Engine\Helper\Common;
-
+use Engine\Core\Router\DispatchedRoute;
 class CMS {
   /**
    * [$di DI]
@@ -28,9 +28,28 @@ public function __construct($di)
  */
 public function run()
 {
-  //$this->router->add('home', '/', 'HomeController:index');
-   // $routerDispatch = $this->router->dispatch('GET', );
-   print_r($_SERVER);
+
+  try{
+
+  $this->router->add('home', '/', 'HomeController:index');
+  $this->router->add('product', '/user12', 'ProductController:index');
+
+  $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
+  if($routerDispatch == null)
+  {
+    $routerDispatch = new DispatchedRoute('ErrorController:page404');
+  }
+  list ($class, $action) = explode(':', $routerDispatch->getController(), 2);
+  $controller = '\\cms\Controller\\'.$class;
+  $parameters = $routerDispatch->getParameters();
+  call_user_func_array([new $controller($this->di), $action], $parameters);
+
+  }catch(\Exception $e){
+  $e->getMessage();
+  }
+
+  //print_r($routerDispatch);
+
 }
 
   }

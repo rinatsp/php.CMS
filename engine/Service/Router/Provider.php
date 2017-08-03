@@ -19,7 +19,7 @@ public $serviceName = 'router';
  * @return mixed
  */
 public function init(){
-  $router = new Router('http://localhost/php.cms');
+  $router = new Router('http://php.cms/');
   $this->di->set($this->serviceName, $router);
 }
 

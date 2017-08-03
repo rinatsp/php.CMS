@@ -18,7 +18,7 @@ private $conteiner =[];
 public function set($key, $value)
 {
   $this->conteiner[$key] = $value;
-  return $this;
+  //return $this;
 }
 
 /**
@@ -28,7 +28,8 @@ public function set($key, $value)
  */
 public function get($key)
 {
-  return $this->has[$key];
+  if($this->has($key) == true)
+  return $this->conteiner[$key];
 }
 /**
  * [has description]

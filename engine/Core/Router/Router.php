@@ -17,26 +17,36 @@ class Router{
  * @param [type] $key        [description]
  * @param [type] $pattern    [description]
  * @param [type] $controller [description]
- * @param string $metod      [description]
+ * @param string $method      [description]
  */
-  public function add($key , $pattern, $controller, $metod ='GET')
+  public function add($key , $pattern, $controller, $method ='GET')
   {
     $this->routes[$key] = [
       'pattern'     =>  $pattern,
       'controller'  =>  $controller,
-      'metod'       =>  $metod
+      'method'       =>  $method
     ];
   }
-
-  public function dispatch($metod, $uri)
+/**
+ * [dispatch description]
+ * @param  [string] $method [description]
+ * @param  [type] $uri    [description]
+ * @return [type]         [description]
+ */
+  public function dispatch($method, $uri)
   {
-
+  return $this->getDispatcher()->dispatch($method, $uri);
   }
+
   public function getDispatcher()
   {
     if($this->dispatcher == null)
     {
-
+      $this->dispatcher = new UrlDispatcher();
+      foreach($this->routes as $route)
+      {
+        $this->dispatcher->register($route['method'], $route['pattern'], $route['controller']);
+      }
     }
     return $this->dispatcher;
   }
