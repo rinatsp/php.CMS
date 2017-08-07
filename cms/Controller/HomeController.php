@@ -8,5 +8,10 @@ class HomeController extends CMSController
   {
     echo 'index PAge';
   }
+  public function news($id)
+  {
+    echo 'news PAge'. $id;
+  }
+
 
 }

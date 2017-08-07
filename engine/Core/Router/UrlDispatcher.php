@@ -43,12 +43,45 @@ class UrlDispatcher{
   }
 
 
-
+/**
+ * [Регистрация пути URL]
+ * @param  [type] $method     [description]
+ * @param  [type] $pattern    [description]
+ * @param  [type] $controller [description]
+ * @return [type]             [description]
+ */
   public function register($method, $pattern, $controller)
   {
-    $this->routes[strtoupper($method)][$pattern] = $controller;
+    $convert = $this->convertPattern($pattern);
+    $this->routes[strtoupper($method)][$convert] = $controller;
+  }
+
+  private function convertPattern($pattern)
+  {
+    if(strpos($pattern, '(') === false)
+    {
+      return $pattern;
+    }
+    return preg_replace_callback('#\((\w+):(\w+)\)#',[$this , 'replacePattern'], $pattern);
+  }
+
+  private function replacePattern($matches)
+  {
+    return '(?<' . $matches[1] . '>' . strtr($matches[2], $this->patterns) . ')';
+  }
+  private function processParam($parameters)
+  {
+    foreach($parameters as $key => $value)
+    {
+      if(is_int($key))
+      {
+        unset($parameters[$key]);
+      }
+    }
+    return $parameters;
   }
   /**
+   *
    * [addPattren description]
    * @param [type] $key     [description]
    * @param [type] $pattern [description]
@@ -87,7 +120,7 @@ class UrlDispatcher{
       $pattern = '#^' . $route . '$#s';
       if(preg_match($pattern, $uri , $parameters))
       {
-        return new DispatchedRoute($controller, $parameters);
+        return new DispatchedRoute($controller, $this->processParam($parameters));
       }
     }
   }

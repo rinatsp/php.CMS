@@ -30,10 +30,7 @@ public function run()
 {
 
   try{
-
-  $this->router->add('home', '/', 'HomeController:index');
-  $this->router->add('product', '/user12', 'ProductController:index');
-
+  require_once __DIR__ . '/../cms/Route.php';
   $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
   if($routerDispatch == null)
   {
