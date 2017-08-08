@@ -6,7 +6,7 @@ class HomeController extends CMSController
 {
   public function index()
   {
-    echo 'index PAge';
+    $this->view->render('index');
   }
   public function news($id)
   {

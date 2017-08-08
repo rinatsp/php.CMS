@@ -28,7 +28,6 @@ public function __construct($di)
  */
 public function run()
 {
-
   try{
   require_once __DIR__ . '/../cms/Route.php';
   $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
@@ -44,9 +43,6 @@ public function run()
   }catch(\Exception $e){
   $e->getMessage();
   }
-
-  //print_r($routerDispatch);
-
 }
 
   }
