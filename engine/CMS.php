@@ -29,14 +29,14 @@ public function __construct($di)
 public function run()
 {
   try{
-  require_once __DIR__ . '/../cms/Route.php';
+  require_once __DIR__ . '/../'. ENV .'/Route.php';
   $routerDispatch = $this->router->dispatch(Common::getMethod(), Common::getPathUrl());
   if($routerDispatch == null)
   {
     $routerDispatch = new DispatchedRoute('ErrorController:page404');
   }
   list ($class, $action) = explode(':', $routerDispatch->getController(), 2);
-  $controller = '\\cms\Controller\\'.$class;
+  $controller = '\\'. ENV .'\Controller\\'.$class;
   $parameters = $routerDispatch->getParameters();
   call_user_func_array([new $controller($this->di), $action], $parameters);
 

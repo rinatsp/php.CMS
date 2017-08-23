@@ -11,35 +11,54 @@ class Theme
     'sidebar' => 'sidebar-%s'
   ];
   public $url = '';
+  protected $data =[];
 
   public function header($name = null)
   {
     $name = (string) $name;
+    $file = 'header';
 
     if($name !== '')
     {
-      $name = sprintf(self::RULES_NAME_FILE['header'], $name);
+      $file = sprintf(self::RULES_NAME_FILE['header'], $name);
     }
-    else
-    {
-      $name = 'header';
-    }
-    $this->loadTemplateFile($name);
+
+    $this->loadTemplateFile($file);
   }
 
   public function footer($name = '')
   {
+    $name = (string) $name;
+    $file = 'footer';
 
+    if($name !== '')
+    {
+      $file = sprintf(self::RULES_NAME_FILE['footer'], $name);
+    }
+
+    $this->loadTemplateFile($file);
   }
 
   public function sidebar($name = '')
   {
+    $name = (string) $name;
+    $file = 'sidebar';
 
+    if($name !== '')
+    {
+      $file = sprintf(self::RULES_NAME_FILE['sidebar'], $name);
+    }
+
+    $this->loadTemplateFile($file);
   }
 
   public function block($name = '', $data = [])
   {
-
+    $name = (string) $name;
+    if($name !== '')
+    {
+      $this->loadTemplateFile($name, $data);
+    }
   }
 
   private function loadTemplateFile($nameFile, $data =  [])
@@ -55,6 +74,16 @@ class Theme
       throw new \Exception(sprintf('view file $s does not exist!', $templateFile));
     }
   }
+
+    public function getData()
+    {
+      return $this->data;
+    }
+
+    public function setData($data)
+    {
+      $this->data = $data;
+    }
 
 
 }
