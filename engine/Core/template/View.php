@@ -20,7 +20,7 @@ class View
    */
   public function render($template, $vars = [])
   {
-    $templatePath = ROOT_DIR . '\\content\\themes\\default\\' . $template . '.php';
+    $templatePath = $this->getTemplatePath($template, ENV);
 
     if(!is_file($templatePath))
     {
@@ -37,7 +37,19 @@ class View
       throw $e;
     }
     echo ob_get_clean();
-
   }
 
+  /**
+   * [getTemplatePath description]
+   * @param  [type] $template [description]
+   * @param  [type] $env      [description]
+   * @return [type] string          [description]
+   */
+  private function getTemplatePath($template, $env = null)
+  {
+      if($env =='cms'){
+        return ROOT_DIR . '/content/themes/default/' . $template . '.php';
+      }
+        return ROOT_DIR . '/View/' . $template . '.php';
+  }
 }
