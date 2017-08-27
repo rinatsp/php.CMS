@@ -6,7 +6,7 @@ use Engine\Helper\Cookie;
 
 class Auth implements AuthInterface
 {
-  protected $authorized = false;
+  public $authorized = false;
   protected $user;
 
 

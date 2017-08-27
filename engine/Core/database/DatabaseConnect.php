@@ -3,19 +3,15 @@
 namespace Engine\Core\database;
 
 use \PDO;
+use Engine\Core\Config\Config;
+
 class DatabaseConnect{
 
 private $link;
 
 private function connect()
 {
-  $config =  [
-    'host'      =>'localhost',
-    'db_name'   =>'test',
-    'username'  =>'root',
-    'password'  =>'',
-    'charset'   =>'utf8'
-  ];
+  $config =  Config::file('database');
   $dns = 'mysql:host='.$config['host'].';dbmane='.$config['db_name'].';charset='.$config['charset'];
   $this->link = new PDO($dns, $config['username'], $config['password']);
   return $this;
