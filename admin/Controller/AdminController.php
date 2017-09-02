@@ -15,11 +15,16 @@ class AdminController extends Controller
  * [__construct description]
  * @param [type] $di [description]
  */
-  function __construct($di)
+  public function __construct($di)
   {
     parent::__construct($di);
     $this->auth = new Auth();
-    if(!$this->auth->authorized and $this->request->server['REQUEST_URI'] !== '/admin/login/')
+    $this->checkAuthorization();
+  }
+
+  public function checkAuthorization()
+  {
+    if(!$this->auth->authorized())
     {
       //redirect
       header('Location: /admin/login/', true, 301);

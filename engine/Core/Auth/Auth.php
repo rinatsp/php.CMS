@@ -6,7 +6,7 @@ use Engine\Helper\Cookie;
 
 class Auth implements AuthInterface
 {
-  public $authorized = false;
+  protected $authorized = false;
   protected $user;
 
 
@@ -22,16 +22,16 @@ class Auth implements AuthInterface
 
   public function authorize($user)
   {
-    Cookie::set('auth.authorized', true);
-    Cookie::set('auth.user', $user);
+    Cookie::set('auth_authorized', true);
+    Cookie::set('auth_user', $user);
     $this->authorized = true;
     $this->user       = $user;
   }
 
   public function unAuthorize()
   {
-    Cookie::delete('auth.authorized');
-    Cookie::delete('auth.user');
+    Cookie::delete('auth_authorized');
+    Cookie::delete('auth_user');
     $this->authorized = false;
     $this->user       = null;
   }

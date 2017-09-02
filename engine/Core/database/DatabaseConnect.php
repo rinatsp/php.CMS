@@ -12,7 +12,7 @@ private $link;
 private function connect()
 {
   $config =  Config::file('database');
-  $dns = 'mysql:host='.$config['host'].';dbmane='.$config['db_name'].';charset='.$config['charset'];
+  $dns = 'mysql:host='.$config['host'].';dbname='.$config['db_name'].';charset='.$config['charset'];
   $this->link = new PDO($dns, $config['username'], $config['password']);
   return $this;
 }
