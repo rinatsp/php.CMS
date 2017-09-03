@@ -2,42 +2,40 @@
 
 namespace Engine\DI;
 
-
-//dependency injection
-class DI {
-
-/**
-* @var array
-*/
-private $conteiner =[];
-/**
- * [set fun]
- * @param [type] $key   [description]
- * @param [type] $value [description]
- */
-public function set($key, $value)
+class DI
 {
-  $this->conteiner[$key] = $value;
-  //return $this;
-}
+    /**
+     * @var array
+     */
+    private $container = [];
 
-/**
- * [get description]
- * @param  [type] $key [description]
- * @return [type]      [description]
- */
-public function get($key)
-{
-  if($this->has($key))
-  return $this->conteiner[$key];
-}
-/**
- * [has description]
- * @param  [type]  $key [description]
- * @return boolean      [description]
- */
-public function has($key)
-{
-  return isset($this->conteiner[$key]);
-}
+    /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    public function set($key, $value)
+    {
+        $this->container[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        return $this->has($key);
+    }
+
+    /**
+     * @param $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return isset($this->container[$key]) ? $this->container[$key] : null;
+    }
 }
