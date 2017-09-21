@@ -20,15 +20,20 @@ class AdminController extends Controller
     parent::__construct($di);
     $this->auth = new Auth();
     $this->checkAuthorization();
+    if ($this->auth->hashUser() == null) {
+      header('Location: /admin/login/');
+      exit;
+    }
   }
 
   public function checkAuthorization()
   {
-    if(!$this->auth->authorized())
-    {
-      //redirect
-      header('Location: /admin/login/', true, 301);
-      exit;
-    }
+
+  }
+  public function logout()
+  {
+    $this->auth->unAuthorize();
+    header('Location: /admin/login/');
+    exit;
   }
 }

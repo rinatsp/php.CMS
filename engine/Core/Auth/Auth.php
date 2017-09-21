@@ -7,7 +7,7 @@ use Engine\Helper\Cookie;
 class Auth implements AuthInterface
 {
   protected $authorized = false;
-  protected $user;
+  protected $hashUser;
 
 
   public function authorized()
@@ -15,25 +15,21 @@ class Auth implements AuthInterface
     return $this->authorized;
   }
 
-  public function user()
+  public function hashUser()
   {
-    return $this->user;
+    return Cookie::get('auth_user');
   }
 
   public function authorize($user)
   {
     Cookie::set('auth_authorized', true);
     Cookie::set('auth_user', $user);
-    $this->authorized = true;
-    $this->user       = $user;
   }
 
   public function unAuthorize()
   {
     Cookie::delete('auth_authorized');
     Cookie::delete('auth_user');
-    $this->authorized = false;
-    $this->user       = null;
   }
 
   public static function salt()
