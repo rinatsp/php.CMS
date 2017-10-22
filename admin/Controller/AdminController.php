@@ -9,6 +9,9 @@ use Engine\Core\Auth\Auth;
  */
 class AdminController extends Controller
 {
+  /**
+   *
+   */
   protected $auth;
 
 /**
